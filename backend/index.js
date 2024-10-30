@@ -112,7 +112,7 @@ async function startServer() {
             });
 
             const data = await response.json();
-            console.log(data.choices.length, " ", data.choices);
+            console.log('data: ', data);
 
             // Check if the choices array exists and has items
             if (data.choices && data.choices.length > 0) {
