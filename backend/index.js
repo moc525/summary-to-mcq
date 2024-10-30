@@ -68,6 +68,11 @@ async function startServer() {
 
 
     // Endpoint
+    // Wildcard GET route
+    app.get('*', async (req, res) => {
+        res.send('Hello World! The app is up and running'); // Respond with "Hello World"
+    });
+
     // New endpoint for summarizeParaToMcq
     app.post('/api/generatemcqs', async (req, res) => {
         const paragraph = req.body.paragraph;
