@@ -60,12 +60,15 @@ async function startServer() {
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));  // Add this line
-    app.use(cors({
-        origin: "*", // Allows all origins (consider restricting this in production)
-        methods: "GET, POST, OPTIONS", // Specify allowed methods
-    }));
+    app.use(cors());
     app.use(bodyParser.json());
 
+    app.options('/api/your-endpoint', (req, res) => {
+        res.header('Access-Control-Allow-Origin', '*'); // or specify your frontend URL
+        res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+        res.header('Access-Control-Allow-Headers', 'Content-Type');
+        res.sendStatus(200);
+    });
 
     // Endpoint
     // Wildcard GET route
