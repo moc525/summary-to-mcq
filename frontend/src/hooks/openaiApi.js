@@ -7,7 +7,7 @@ const useOpenaiApi = () => {
 
     const summarizeParaToMcq = async (payload) => {
         try {
-            const res = await fetch('http://localhost:5000/api/generatemcqs', {
+            const res = await fetch(process.env.RESOURCE_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
