@@ -60,7 +60,10 @@ async function startServer() {
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));  // Add this line
-    app.use(cors());
+    app.use(cors({
+        origin: "*", // Allows all origins (consider restricting this in production)
+        methods: "GET, POST, OPTIONS", // Specify allowed methods
+    }));
     app.use(bodyParser.json());
 
 
@@ -101,6 +104,7 @@ async function startServer() {
             });
 
             const data = await response.json();
+            console.log(data.choices.length, " ", data.choices);
 
             // Check if the choices array exists and has items
             if (data.choices && data.choices.length > 0) {
