@@ -11,6 +11,7 @@ const useOpenaiApi = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'x-vercel-protection-bypass': process.env.VERCEL_AUTOMATION_BYPASS_SECRET
                 },
                 body: JSON.stringify({
                     paragraph: payload
