@@ -35,7 +35,7 @@ router.post('/api/generatemcqs', async (req, res) => {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
 
     if (!paragraph) {
-        return res.status(400).json({ error: "Paragraph is required" });
+        return res.status(400).json({ error: 'Paragraph is required' });
     }
 
     const prompt = `Create 10 engaging multiple-choice questions (MCQs) based on the paragraph at the end. Each question should contain 3 choices and is designed to assess the critical thinking and comprehension skills of 8th-grade students in the Norwegian region. 
@@ -71,6 +71,8 @@ router.post('/api/generatemcqs', async (req, res) => {
                         ${paragraph}`;
 
     try {
+        console.log('Sending request to OpenAI API...');
+
         const response = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
             headers: {
@@ -85,6 +87,8 @@ router.post('/api/generatemcqs', async (req, res) => {
 
         const data = await response.json();
 
+        console.log('Response received...\n', JSON.stringify(data));
+        
         // Check if the choices array exists and has items
         if (data.choices && data.choices.length > 0) {
 
@@ -98,12 +102,12 @@ router.post('/api/generatemcqs', async (req, res) => {
             console.log('MCQs generated successfully!');
             res.send({ success: true, message: 'MCQs inserted into the DB!' });
         } else {
-            console.error("No choices available in the response.");
-            res.send({ success: false, message: "MCQs could not be generated!" });
+            console.error('No choices available in the response.');
+            res.send({ success: false, message: 'MCQs could not be generated!' });
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: "Internal Server Error" });
+        console.error(`Unexpected Error: ${error}`);
+        res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 });
 
