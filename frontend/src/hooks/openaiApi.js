@@ -8,7 +8,7 @@ const useOpenaiApi = () => {
     const summarizeParaToMcq = async (payload) => {
         try {
             const url = process.env.RESOURCE_URL + '/api/generatemcqs';
-            console.log(url);
+            console.log(`Sending request to the following url: ${url}`);
 
             const res = await fetch(url, {
                 method: 'POST',
@@ -22,7 +22,8 @@ const useOpenaiApi = () => {
             });
 
             const data = await res.json();
-            
+            console.log(`Response received: ${data}`);
+                        
             setResponse(data.message);
             setError(!data.success);
 
