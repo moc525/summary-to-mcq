@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const InputBox = ({ onSummarize }) => {
     const [inputValue, setInputValue] = useState('');
-    const maxLength = 1024;
+    const maxLength = 2500;
 
     const handleInputChange = (event) => {
         if (event.target.value.length <= maxLength) {
